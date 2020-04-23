@@ -17,15 +17,17 @@ public class ChromeKeywords extends AbstractKeyword{
 	    try {
 		ChromeDriver chrome = new ChromeDriver();
 		String homeUrl =input.getString("url");
+     	String plan= input.getString("plan");;
+        String username = input.getString("username");;
+	    String password = input.getString("password");;
+	    
 		chrome.navigate().to(homeUrl);
 	
 			Thread.sleep(3000);
 	
 
 	    JavascriptExecutor js = (JavascriptExecutor) chrome;
-	    String username ="admin22";
-	    String password ="init";
-	    
+	
      	System.out.println("login "); 
 	    String val = js.executeScript("$(\"input[name='username']\").val('"+username+"');"
 		+ "$(\"input[name='password']\").val('"+password+"');"		
@@ -38,7 +40,6 @@ public class ChromeKeywords extends AbstractKeyword{
      	System.out.println("Fin login"); 
 		Thread.sleep(3000);
      	System.out.println("lance un plan "); 
-	     	String plan= "plan2";
 		    val = js.executeScript("$('table  > tbody  > tr').each(function(index, tr) { "
 				+"td = tr.getElementsByTagName(\"td\")[0];if(td.innerText==\""+plan+"\") {td2 =$('> td:nth-child(3) > div > div > button:nth-child(2)', this);"
 		    	 + "console.log(td2);$('> td:nth-child(3) > div > div > button:nth-child(2)', this).click();  return false;}"

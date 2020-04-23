@@ -14,110 +14,61 @@ import step.handlers.javahandler.Keyword;
 public class ChromeKeywords extends AbstractKeyword{
 	@Keyword
 	public void createAndNavigate() {
-
+	    try {
 		ChromeDriver chrome = new ChromeDriver();
 		String homeUrl =input.getString("url");
 		chrome.navigate().to(homeUrl);
-		String extractedValue = chrome.findElement(By.xpath("//p[1]")).getText();
-		System.out.println("val : "+extractedValue); 
+	
+			Thread.sleep(3000);
+	
 
 	    JavascriptExecutor js = (JavascriptExecutor) chrome;
-	    String username ="admin";
+	    String username ="admin22";
 	    String password ="init";
+	    
+     	System.out.println("login "); 
 	    String val = js.executeScript("$(\"input[name='username']\").val('"+username+"');"
-		+ "$(\"input[name='password']\").val('"+password+"');"
-		
+		+ "$(\"input[name='password']\").val('"+password+"');"		
 		+ " return true").toString();
-	    System.out.println("val1 aa: "+val); 
+		Thread.sleep(3000);
 
-	    val = js.executeScript("$(\"button\")[0].click();"
+	     val = js.executeScript("$(\"button\")[0].click();"
 	    		+ "$(\"[class='glyphicon glyphicon-file']\").parent().click();"
 	    		+ " return true").toString();
-	     	System.out.println("val2 xx : "+val); 
-	     	String i= "plan2";
+     	System.out.println("Fin login"); 
+		Thread.sleep(3000);
+     	System.out.println("lance un plan "); 
+	     	String plan= "plan2";
 		    val = js.executeScript("$('table  > tbody  > tr').each(function(index, tr) { "
-				+"td = tr.getElementsByTagName(\"td\")[0];if(td.innerText=="+i+") {td2 =$('> td:nth-child(3) > div > div > button:nth-child(2)', this);"
+				+"td = tr.getElementsByTagName(\"td\")[0];if(td.innerText==\""+plan+"\") {td2 =$('> td:nth-child(3) > div > div > button:nth-child(2)', this);"
 		    	 + "console.log(td2);$('> td:nth-child(3) > div > div > button:nth-child(2)', this).click();  return false;}"
 		    	+"});"
 		    	+ " return true").toString();
-		     	System.out.println("val3 xx : "+val); 	
-		     	
 		  	  val = js.executeScript("$(\"[class='glyphicon glyphicon glyphicon-play']\").parent().click();"  
 				    	+ " return true").toString();
-		     	 System.out.println("val4 xx : "+val); 	
-		     	 
-		   	  val = js.executeScript("$(\"[class='glyphicon glyphicon-tasks']\").parent().click();" + 
-			  	  		"return true").toString();
-			     	 System.out.println("val5 xx : "+val); 	
-	      	  val = js.executeScript("$(\"body > div > div > div > div > div > ul > li:nth-child(1) > a\").click();" + 
-			  	  		"return true").toString();
-			     	 System.out.println("val6 xx : "+val); 
-			     
-	    	  val = js.executeScript(	"var i=false  ;$('table  > tbody  > tr').each(function(index, tr) {"
-					 +"if (tr.innerText.indexOf(\"plan32\") >= 0)i=true;"
+	     	System.out.println("Fin lance un plan "); 
+			Thread.sleep(6000);
+	     	System.out.println("naviguer sur la vue exécution"); 		     	
+			   	  val = js.executeScript("$(\"[class='glyphicon glyphicon-tasks']\").parent().click();" + 
+			  	  		"$(\"body > div > div > div > div > div > ul > li:nth-child(1) > a\").click();" + 
+			  	  		"return true").toString();	      	  
+		     	System.out.println("Fin naviguer sur la vue exécution"); 		     	
+				Thread.sleep(3000);
+		     	System.out.println("vérifier qu'il y a bien une exécution qui correspond à mon plan et ouvrir la dernière exécution ");	  	
+	    	  val = js.executeScript(	"var execExist=false  ;$('table  > tbody  > tr').each(function(index, tr) {"
+					 +"if (tr.innerText.indexOf(\""+plan+"\") >= 0){$('> td:nth-child(1) > a', this).click();execExist=true;return false}"
 		    	      +"}) ;return i").toString();
-	     	 System.out.println("val7 xx : "+val); 
-	     	 
+		     	System.out.println("Fin vérifier qu'il y a bien une exécution qui correspond à mon plan"); 	
+				Thread.sleep(3000);
+		     	System.out.println("je me déconnecte");	 
 	     	  val = js.executeScript("$(\"[class='glyphicon glyphicon-off']\").click(); return true").toString();
-		     	 System.out.println("val8 xx : "+val); 	
-		     	 
-		     	  val = js.executeScript("return true").toString();
-		     	 System.out.println("val3 xx : "+val); 	
+			     	System.out.println("Fin je me déconnecte");	  	
+
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}    
 	}
 
 
-	 public static void main(String args[]){
-		 System.out.println("Hello World"); 
-			//	    System.setProperty("webdriver.chrome.driver",
-			//		"D:\\MyInstalls\\chromedriver_win32\\chromedriver.exe");
-			ChromeDriver chrome = new ChromeDriver();
-			String homeUrl ="http://localhost:8080/";
-			chrome.navigate().to(homeUrl);
-			String extractedValue = chrome.findElement(By.xpath("//p[1]")).getText();
-			System.out.println("val : "+extractedValue); 
-
-		    JavascriptExecutor js = (JavascriptExecutor) chrome;
-		    String username ="admin";
-		    String password ="init";
-		    String val = js.executeScript("$(\"input[name='username']\").val('"+username+"');"
-    		+ "$(\"input[name='password']\").val('"+password+"');"
-    		
-    		+ " return true").toString();
-		    System.out.println(" "); 
-
-		    val = js.executeScript("$(\"button\")[0].click();"
-		    		+ "$(\"[class='glyphicon glyphicon-file']\").parent().click();"
-		    		+ " return true").toString();
-		     	System.out.println("val2 xx : "+val); 
-		     	String i= "plan";
-			    val = js.executeScript("$('table  > tbody  > tr').each(function(index, tr) { "
-					+"td = tr.getElementsByTagName(\"td\")[0];if(td.innerText==\"plan2\") {td2 =$('> td:nth-child(3) > div > div > button:nth-child(2)', this);"
-			    	 + "console.log(td2);$('> td:nth-child(3) > div > div > button:nth-child(2)', this).click();  return false;}"
-			    	+"});"
-			    	+ " return true").toString();
-			     	System.out.println("val3 xx : "+val); 	
-			     	
-			  	  val = js.executeScript("$(\"[class='glyphicon glyphicon glyphicon-play']\").parent().click();"  
-					    	+ " return true").toString();
-			     	 System.out.println("val4 xx : "+val); 	
-			     	 
-			   	  val = js.executeScript("$(\"[class='glyphicon glyphicon-tasks']\").parent().click();" + 
-				  	  		"return true").toString();
-				     	 System.out.println("val5 xx : "+val); 	
-		      	  val = js.executeScript("$(\"body > div > div > div > div > div > ul > li:nth-child(1) > a\").click();" + 
-				  	  		"return true").toString();
-				     	 System.out.println("val6 xx : "+val); 
-				     
-		    	  val = js.executeScript(	"var i=false  ;$('table  > tbody  > tr').each(function(index, tr) {"
-						 +"if (tr.innerText.indexOf(\"plan\") >= 0)i=true;"
-			    	      +"}) ;return i").toString();
-		     	 System.out.println("val7 xx : "+val); 
-		     	 
-//		     	  val = js.executeScript("$(\"[class='glyphicon glyphicon-off']\").click(); return true").toString();
-//			     	 System.out.println("val8 xx : "+val); 	
-			     	 
-			     	  val = js.executeScript("return true").toString();
-			     	 System.out.println("val3 xx : "+val); 	
-	
-	 }
 }
